@@ -1,4 +1,4 @@
-package com.sielski.marcin.bakingapp;
+package com.sielski.marcin.bakingapp.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,6 +12,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.ActionBar;
 import android.view.MenuItem;
 
+import com.sielski.marcin.bakingapp.R;
+import com.sielski.marcin.bakingapp.fragment.RecipeDetailFragment;
 import com.sielski.marcin.bakingapp.data.Recipe;
 import com.sielski.marcin.bakingapp.util.BakingAppUtils;
 
@@ -55,11 +57,11 @@ public class RecipeDetailActivity extends AppCompatActivity {
 
     @SuppressWarnings("WeakerAccess")
     @BindView(R.id.detail_toolbar)
-    Toolbar mToolbar;
+    public Toolbar mToolbar;
 
     @SuppressWarnings("WeakerAccess")
     @BindView(R.id.detail_viewpager)
-    ViewPager mViewPager;
+    public ViewPager mViewPager;
 
     private Recipe mRecipe;
     private int mPosition;
@@ -146,7 +148,7 @@ public class RecipeDetailActivity extends AppCompatActivity {
                 (FragmentStatePagerAdapter) mViewPager.getAdapter();
         if (fragmentPagerAdapter != null && position > 0 &&
                 position < fragmentPagerAdapter.getCount()) {
-            ((RecipeDetailFragment) fragmentPagerAdapter.getItem(position)).Play();
+            ((RecipeDetailFragment) fragmentPagerAdapter.getItem(position)).play();
         }
     }
 
@@ -155,7 +157,7 @@ public class RecipeDetailActivity extends AppCompatActivity {
                 (FragmentStatePagerAdapter) mViewPager.getAdapter();
         if (fragmentPagerAdapter != null && position > 0 &&
                 position < fragmentPagerAdapter.getCount()) {
-            ((RecipeDetailFragment) fragmentPagerAdapter.getItem(position)).Pause();
+            ((RecipeDetailFragment) fragmentPagerAdapter.getItem(position)).pause();
         }
     }
 

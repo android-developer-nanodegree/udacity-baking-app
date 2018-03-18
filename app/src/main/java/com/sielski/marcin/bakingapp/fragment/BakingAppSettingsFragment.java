@@ -1,4 +1,4 @@
-package com.sielski.marcin.bakingapp;
+package com.sielski.marcin.bakingapp.fragment;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -6,6 +6,7 @@ import android.preference.Preference;
 import android.preference.PreferenceFragment;
 import android.support.annotation.Nullable;
 
+import com.sielski.marcin.bakingapp.R;
 import com.sielski.marcin.bakingapp.util.BakingAppUtils;
 
 

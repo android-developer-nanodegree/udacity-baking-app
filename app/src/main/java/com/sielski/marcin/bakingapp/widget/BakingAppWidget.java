@@ -9,7 +9,7 @@ import android.content.Intent;
 import android.widget.RemoteViews;
 
 import com.sielski.marcin.bakingapp.R;
-import com.sielski.marcin.bakingapp.RecipesActivity;
+import com.sielski.marcin.bakingapp.activity.RecipesActivity;
 import com.sielski.marcin.bakingapp.data.Recipe;
 import com.sielski.marcin.bakingapp.util.BakingAppUtils;
 

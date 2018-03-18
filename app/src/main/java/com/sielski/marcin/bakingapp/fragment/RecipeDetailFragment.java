@@ -1,4 +1,4 @@
-package com.sielski.marcin.bakingapp;
+package com.sielski.marcin.bakingapp.fragment;
 
 import android.app.Activity;
 import android.app.Dialog;
@@ -29,6 +29,8 @@ import com.google.android.exoplayer2.trackselection.TrackSelectionArray;
 import com.google.android.exoplayer2.ui.PlayerView;
 import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory;
 import com.google.android.exoplayer2.util.Util;
+import com.sielski.marcin.bakingapp.R;
+import com.sielski.marcin.bakingapp.activity.RecipeDetailActivity;
 import com.sielski.marcin.bakingapp.data.Recipe;
 import com.sielski.marcin.bakingapp.data.Step;
 import com.sielski.marcin.bakingapp.util.BakingAppUtils;
@@ -41,23 +43,23 @@ public class RecipeDetailFragment extends Fragment {
 
     @SuppressWarnings("WeakerAccess")
     @BindView(R.id.recipe_step_video)
-    PlayerView mPlayerView;
+    public PlayerView mPlayerView;
 
     @SuppressWarnings("WeakerAccess")
     @BindView(R.id.recipe_step_video_frame)
-    FrameLayout mFrameLayout;
+    public FrameLayout mFrameLayout;
 
     @SuppressWarnings("WeakerAccess")
     @BindView(R.id.recipe_step_card)
-    CardView mCardView;
+    public CardView mCardView;
 
     @SuppressWarnings("WeakerAccess")
     @BindView(R.id.recipe_step_description)
-    TextView mTextView;
+    public TextView mTextView;
 
     @SuppressWarnings("WeakerAccess")
     @BindView(R.id.recipe_step_image)
-    ImageView mImageView;
+    public ImageView mImageView;
 
     private Dialog mDialog;
 
@@ -84,8 +86,13 @@ public class RecipeDetailFragment extends Fragment {
                 mPosition = bundle.getInt(BakingAppUtils.KEY.POSITION);
                 mRecipe = bundle.getParcelable(BakingAppUtils.KEY.RECIPE);
             }
-            if (savedInstanceState == null && bundle.containsKey(BakingAppUtils.KEY.PLAY_WHEN_READY)) {
-                mPlayWhenReady = bundle.getBoolean(BakingAppUtils.KEY.PLAY_WHEN_READY);
+            if (savedInstanceState == null) {
+                if (bundle.containsKey(BakingAppUtils.KEY.PLAY_WHEN_READY)) {
+                    mPlayWhenReady = bundle.getBoolean(BakingAppUtils.KEY.PLAY_WHEN_READY);
+                }
+                if (bundle.containsKey(BakingAppUtils.KEY.PLAYBACK_POSITION)) {
+                    mPlaybackPosition = bundle.getLong(BakingAppUtils.KEY.PLAYBACK_POSITION);
+                }
             }
         }
 
@@ -219,8 +226,7 @@ public class RecipeDetailFragment extends Fragment {
     }
 
     @Override
-    public void onDestroyView() {
-        super.onDestroyView();
+    public void onStop() {
         if (mSimpleExoPlayer != null) {
             mSimpleExoPlayer.stop();
             mSimpleExoPlayer.release();
@@ -229,17 +235,26 @@ public class RecipeDetailFragment extends Fragment {
         if (mDialog != null) {
             mDialog.dismiss();
         }
+        super.onStop();
     }
 
-    public void Play() {
+    public void play() {
         if (mSimpleExoPlayer != null) {
             mSimpleExoPlayer.setPlayWhenReady(true);
         }
     }
 
-    public void Pause() {
+    public void pause() {
         if (mSimpleExoPlayer != null) {
             mSimpleExoPlayer.setPlayWhenReady(false);
+        }
+    }
+
+    public long getPlaybackPosition() {
+        if (mSimpleExoPlayer != null) {
+            return mSimpleExoPlayer.getCurrentPosition();
+        } else {
+            return 0;
         }
     }
 

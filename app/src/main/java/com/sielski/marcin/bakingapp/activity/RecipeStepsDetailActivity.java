@@ -1,4 +1,4 @@
-package com.sielski.marcin.bakingapp;
+package com.sielski.marcin.bakingapp.activity;
 
 
 import android.content.Intent;
@@ -8,10 +8,10 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-// TODO: Uncomment or remove if this option is required
-// import android.view.Menu;
 import android.view.MenuItem;
 
+import com.sielski.marcin.bakingapp.R;
+import com.sielski.marcin.bakingapp.fragment.RecipeDetailFragment;
 import com.sielski.marcin.bakingapp.adapter.RecipeStepsAdapter;
 import com.sielski.marcin.bakingapp.data.Recipe;
 import com.sielski.marcin.bakingapp.util.BakingAppUtils;
@@ -23,22 +23,23 @@ public class RecipeStepsDetailActivity extends AppCompatActivity {
 
     @SuppressWarnings("WeakerAccess")
     @BindView(R.id.toolbar)
-    Toolbar mToolbar;
+    public Toolbar mToolbar;
 
     @SuppressWarnings("WeakerAccess")
     @BindView(R.id.recipe_steps)
-    RecyclerView mRecyclerView;
+    public RecyclerView mRecyclerView;
 
     @SuppressWarnings("WeakerAccess")
     @BindView(R.id.fab)
-    FloatingActionButton floatingActionButton;
-    /**
-     * Whether or not the activity is in two-pane mode, i.e. running on a tablet
-     * device.
-     */
+    public FloatingActionButton floatingActionButton;
+
     private boolean mTwoPane;
 
     private Recipe mRecipe;
+
+    private int mPosition;
+
+    private long mPlaybackPosition;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,27 +78,23 @@ public class RecipeStepsDetailActivity extends AppCompatActivity {
         if (findViewById(R.id.recipe_detail_container) != null) {
             mTwoPane = true;
         }
+        if (savedInstanceState != null) {
+            mPosition = savedInstanceState.getInt(BakingAppUtils.KEY.POSITION);
+            if (mTwoPane) {
+                mPlaybackPosition = savedInstanceState.getLong(BakingAppUtils.KEY.PLAYBACK_POSITION);
+            }
+        }
 
-        mRecyclerView.setAdapter(new RecipeStepsAdapter(this, mRecipe, mTwoPane));
+        mRecyclerView.setAdapter(
+                new RecipeStepsAdapter(this, mRecipe, mTwoPane, mPosition, mPlaybackPosition));
     }
-/* TODO: Uncomment or remove if this option is required
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.recipe_menu, menu);
-        return true;
-    }
-*/
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
                 onBackPressed();
                 return true;
-/* TODO: Uncomment or remove if this option is required
-            case R.id.action_widget:
-                BakingAppUtils.saveRecipe(this, mRecipe);
-                return true;
-                */
         }
         return super.onOptionsItemSelected(item);
     }
@@ -107,9 +104,20 @@ public class RecipeStepsDetailActivity extends AppCompatActivity {
         RecipeDetailFragment recipeDetailFragment =
                 ((RecipeStepsAdapter)mRecyclerView.getAdapter()).getCurrentFragment();
         if (mTwoPane && recipeDetailFragment != null) {
-            recipeDetailFragment.Pause();
+            recipeDetailFragment.pause();
+            mPlaybackPosition = recipeDetailFragment.getPlaybackPosition();
         }
         super.onPause();
     }
 
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        RecipeStepsAdapter recipeStepsAdapter = (RecipeStepsAdapter)mRecyclerView.getAdapter();
+        outState.putInt(BakingAppUtils.KEY.POSITION,
+                recipeStepsAdapter.getPosition());
+        if (mTwoPane) {
+            outState.putLong(BakingAppUtils.KEY.PLAYBACK_POSITION, mPlaybackPosition);
+        }
+    }
 }

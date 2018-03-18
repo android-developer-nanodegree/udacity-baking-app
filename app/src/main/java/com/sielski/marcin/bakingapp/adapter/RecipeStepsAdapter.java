@@ -15,8 +15,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.sielski.marcin.bakingapp.R;
-import com.sielski.marcin.bakingapp.RecipeDetailActivity;
-import com.sielski.marcin.bakingapp.RecipeDetailFragment;
+import com.sielski.marcin.bakingapp.activity.RecipeDetailActivity;
+import com.sielski.marcin.bakingapp.fragment.RecipeDetailFragment;
 import com.sielski.marcin.bakingapp.data.Recipe;
 import com.sielski.marcin.bakingapp.util.BakingAppUtils;
 
@@ -36,11 +36,15 @@ public class RecipeStepsAdapter extends RecyclerView.Adapter<RecipeStepsAdapter.
     private RecipeDetailFragment mRecipeDetailFragment;
     private boolean mShowFragment = true;
     private int mLayoutPosition = 0;
+    private long mPlaybackPosition = 0;
 
-    public RecipeStepsAdapter(FragmentActivity activity, Recipe recipe, boolean twoPane) {
+    public RecipeStepsAdapter(FragmentActivity activity, Recipe recipe, boolean twoPane,
+                              int position, long playbackPosition) {
+        mActivity = activity;
         mRecipe = recipe;
         mTwoPane = twoPane;
-        mActivity = activity;
+        mLayoutPosition = position;
+        mPlaybackPosition = playbackPosition;
     }
 
     @NonNull
@@ -66,9 +70,9 @@ public class RecipeStepsAdapter extends RecyclerView.Adapter<RecipeStepsAdapter.
 
         // If this is two pane view
         if (mTwoPane) {
-            // Show fragment 0 only once
+            // Show fragment only once
             if (mShowFragment) {
-                showDetailFragment(0);
+                showDetailFragment();
                 mShowFragment = false;
             }
             // If current view position is selected position change the color of the text
@@ -91,9 +95,10 @@ public class RecipeStepsAdapter extends RecyclerView.Adapter<RecipeStepsAdapter.
 
                     // Setup new position
                     mLayoutPosition = layoutPosition;
+                    mPlaybackPosition = 0;
 
                     // Show selected fragment
-                    showDetailFragment(layoutPosition);
+                    showDetailFragment();
                 } else {
                     Intent intent = new Intent(context, RecipeDetailActivity.class);
                     intent.putExtra(BakingAppUtils.KEY.POSITION, layoutPosition);
@@ -118,11 +123,12 @@ public class RecipeStepsAdapter extends RecyclerView.Adapter<RecipeStepsAdapter.
         super.onViewRecycled(holder);
     }
 
-    private void showDetailFragment(int position) {
+    private void showDetailFragment() {
         Fragment recipeDetailFragment = new RecipeDetailFragment();
         Bundle bundle = new Bundle();
         bundle.putParcelable(BakingAppUtils.KEY.RECIPE, mRecipe);
-        bundle.putInt(BakingAppUtils.KEY.POSITION, position);
+        bundle.putInt(BakingAppUtils.KEY.POSITION, mLayoutPosition);
+        bundle.putLong(BakingAppUtils.KEY.PLAYBACK_POSITION, mPlaybackPosition);
         bundle.putBoolean(BakingAppUtils.KEY.PLAY_WHEN_READY, true);
         recipeDetailFragment.setArguments(bundle);
         FragmentManager fragmentManager = mActivity.getSupportFragmentManager();
@@ -141,4 +147,9 @@ public class RecipeStepsAdapter extends RecyclerView.Adapter<RecipeStepsAdapter.
     public RecipeDetailFragment getCurrentFragment() {
         return mRecipeDetailFragment;
     }
+
+    public int getPosition() {
+        return mLayoutPosition;
+    }
+
 }

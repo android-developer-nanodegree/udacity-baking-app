@@ -7,7 +7,7 @@
     android:divider="?android:attr/dividerHorizontal"
     android:orientation="horizontal"
     android:showDividers="middle"
-    tools:context="com.sielski.marcin.bakingapp.RecipeStepsDetailActivity">
+    tools:context="com.sielski.marcin.bakingapp.activity.RecipeStepsDetailActivity">
 
     <android.support.v7.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
@@ -16,7 +16,7 @@
         android:layout_width="@dimen/item_width"
         android:layout_height="match_parent"
         app:layoutManager="LinearLayoutManager"
-        tools:context="com.sielski.marcin.bakingapp.RecipeStepsDetailActivity" />
+        tools:context="com.sielski.marcin.bakingapp.activity.RecipeStepsDetailActivity" />
 
     <FrameLayout
         android:id="@+id/recipe_detail_container"

@@ -20,6 +20,7 @@ import static android.support.test.espresso.matcher.ViewMatchers.withId;
 public class BakingAppTestUtils {
 
     public static void selectRecipe(int position) {
+        onView(isRoot()).perform(BakingAppTestUtils.waitFor(3000));
         onView(withId(R.id.recipes))
                 .perform(RecyclerViewActions.actionOnItemAtPosition(position, click()));
     }
@@ -29,15 +30,15 @@ public class BakingAppTestUtils {
     }
 
     public static void selectStep(int position) {
+        onView(isRoot()).perform(BakingAppTestUtils.waitFor(3000));
         onView(withId(R.id.recipe_steps))
                 .perform(RecyclerViewActions.actionOnItemAtPosition(position, click()));
     }
 
     public static boolean isTwoPane(Context context) {
         Configuration configuration = context.getResources().getConfiguration();
-        return ((configuration.screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK)
-                >= Configuration.SCREENLAYOUT_SIZE_XLARGE) &&
-                (configuration.orientation == Configuration.ORIENTATION_LANDSCAPE);
+        return (configuration.screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK)
+                >= Configuration.SCREENLAYOUT_SIZE_XLARGE;
     }
 
     public static boolean isHorizontal(Context context) {

@@ -7,6 +7,9 @@ import android.support.test.espresso.matcher.ViewMatchers;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 
+import com.sielski.marcin.bakingapp.activity.RecipeDetailActivity;
+import com.sielski.marcin.bakingapp.activity.RecipeStepsDetailActivity;
+import com.sielski.marcin.bakingapp.activity.RecipesActivity;
 import com.sielski.marcin.bakingapp.util.BakingAppTestUtils;
 import com.sielski.marcin.bakingapp.util.BakingAppUtils;
 
@@ -65,7 +68,7 @@ public class BakingAppTest {
             Intents.init();
             BakingAppTestUtils.selectStep(position);
             if (BakingAppTestUtils.isTwoPane(mActivityTestRule.getActivity())) {
-                onView(isRoot()).perform(BakingAppTestUtils.waitFor(2000));
+                onView(isRoot()).perform(BakingAppTestUtils.waitFor(3000));
                 if (position == 1) {
                     onView(withId(R.id.recipe_step_video)).check(matches(isCompletelyDisplayed()));
                 } else {
@@ -79,7 +82,7 @@ public class BakingAppTest {
                 intended(hasComponent(RecipeDetailActivity.class.getName()));
                 intended(hasExtraWithKey(BakingAppUtils.KEY.RECIPE));
                 intended(hasExtra(BakingAppUtils.KEY.POSITION, position));
-                onView(isRoot()).perform(BakingAppTestUtils.waitFor(2000));
+                onView(isRoot()).perform(BakingAppTestUtils.waitFor(3000));
                 if (BakingAppTestUtils.isHorizontal(mActivityTestRule.getActivity()) &&
                         (position != 0) && (position != 2) && (position != 6)) {
                     onView(allOf(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE),
@@ -90,7 +93,7 @@ public class BakingAppTest {
                 onView(withId(R.id.detail_viewpager)).check(matches(isCompletelyDisplayed()));
                 for (int i = position; i < 7; i++) {
                     onView(withId(R.id.detail_viewpager)).perform(swipeLeft());
-                    onView(isRoot()).perform(BakingAppTestUtils.waitFor(2000));
+                    onView(isRoot()).perform(BakingAppTestUtils.waitFor(3000));
                     if (i == 0) {
                         onView(allOf(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE),
                                 withId(R.id.recipe_step_video)))
@@ -104,7 +107,7 @@ public class BakingAppTest {
                 }
                 for (int i = 5; i >= position; i--) {
                     onView(withId(R.id.detail_viewpager)).perform(swipeRight());
-                    onView(isRoot()).perform(BakingAppTestUtils.waitFor(2000));
+                    onView(isRoot()).perform(BakingAppTestUtils.waitFor(3000));
                     if (i == 0) {
                         onView(allOf(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE),
                                 withId(R.id.recipe_step_video)))

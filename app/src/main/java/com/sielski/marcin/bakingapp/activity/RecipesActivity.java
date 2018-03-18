@@ -1,4 +1,4 @@
-package com.sielski.marcin.bakingapp;
+package com.sielski.marcin.bakingapp.activity;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -21,6 +21,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.sielski.marcin.bakingapp.R;
 import com.sielski.marcin.bakingapp.adapter.RecipesAdapter;
 import com.sielski.marcin.bakingapp.data.Recipe;
 import com.sielski.marcin.bakingapp.util.BakingAppUtils;
@@ -34,11 +35,11 @@ public class RecipesActivity extends AppCompatActivity {
 
     @SuppressWarnings("WeakerAccess")
     @BindView(R.id.recipes)
-    RecyclerView mRecycleView;
+    public RecyclerView mRecycleView;
 
     @SuppressWarnings("WeakerAccess")
     @BindView(R.id.progress_baking_app)
-    ProgressBar mProgressBar;
+    public ProgressBar mProgressBar;
 
     private RequestQueue mRequestQueue;
 

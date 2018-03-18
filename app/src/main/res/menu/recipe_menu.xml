@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!-- TODO: Remove this file layout if the option is not required -->
-<menu xmlns:tools="http://schemas.android.com/tools"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:keep="@menu/recipe_menu">
-    <item android:id="@+id/action_widget" android:title="@string/title_widget"
-        app:showAsAction="ifRoom"/>
-</menu>

@@ -29,7 +29,7 @@ import java.net.URL;
 //import java.util.HashSet;
 //import java.util.Set;
 
-public class BakingAppUtils {
+public final class BakingAppUtils {
     public final static String ACTION_NETWORK_CHANGE = "android.net.conn.CONNECTIVITY_CHANGE";
 
     public final static String BAKING_APP_URL = "https://go.udacity.com/android-baking-app-json";

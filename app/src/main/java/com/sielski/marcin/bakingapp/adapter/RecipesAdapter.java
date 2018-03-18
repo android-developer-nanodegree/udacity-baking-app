@@ -13,8 +13,8 @@ import android.widget.TextView;
 import com.android.volley.Request;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.sielski.marcin.bakingapp.R;
-import com.sielski.marcin.bakingapp.RecipeStepsDetailActivity;
-import com.sielski.marcin.bakingapp.RecipesActivity;
+import com.sielski.marcin.bakingapp.activity.RecipeStepsDetailActivity;
+import com.sielski.marcin.bakingapp.activity.RecipesActivity;
 import com.sielski.marcin.bakingapp.data.Recipe;
 import com.sielski.marcin.bakingapp.util.BakingAppUtils;
 import com.sielski.marcin.bakingapp.util.GlideApp;
@@ -84,7 +84,6 @@ public class RecipesAdapter extends RecyclerView.Adapter<RecipesAdapter.ViewHold
                     .into((ImageView) holder.itemView.findViewById(R.id.recipe_image));
         }
         holder.itemView.setOnClickListener((v) -> {
-            // TODO: Remove line below if the the option is required
             BakingAppUtils.saveRecipe(context, recipe);
             Intent intent = new Intent(context, RecipeStepsDetailActivity.class);
             intent.putExtra(BakingAppUtils.KEY.RECIPE, recipe);

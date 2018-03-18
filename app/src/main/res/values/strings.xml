@@ -1,13 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources>
     <string name="app_name">Baking App</string>
     <string name="title_recipes">Baking Time</string>
     <string name="title_recipe_detail">Recipe Detail</string>
     <string name="title_baking_app_settings">Baking App Settings</string>
     <string name="title_cse_api_key">Google Custom Search Engine Api Key</string>
     <string name="title_settings">Settings</string>
-    <!-- TODO: Remove the line below if the option is not required -->
-    <string name="title_widget" tools:keep="@string/title_widget">Attach to widget</string>
     <string name="key_cse_api_key">cse_api_key</string>
     <string name="snackbar_settings_cse_api_key">Please use 39 alphanumerical characters.</string>
     <string name="snackbar_cse_api_key">Please enter Google Custom Search Engine Api Key.</string>
