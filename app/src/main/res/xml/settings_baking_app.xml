@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <EditTextPreference
+        android:title="@string/title_cse_api_key"
+        android:key="@string/key_cse_api_key"/>
+</PreferenceScreen>
